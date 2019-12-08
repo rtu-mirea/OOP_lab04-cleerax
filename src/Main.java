@@ -1,5 +1,8 @@
 import java.io.*;
 import java.util.Arrays;
+import java.util.Scanner;
+import java.util.LinkedList;
+import java.util.Iterator;
 
 public class Main {
 
@@ -78,10 +81,60 @@ public class Main {
             file3.delete();
             file4.delete();
             folder.delete();
+
+            //Задание 2
+
+            Scanner sc = new Scanner(System.in);
+            System.out.print("Введите название файла: ");
+            String fileName = sc.nextLine();
+            FileControl.createFile(fileName);
+            String choice = "";
+            while (!choice.equals("0")) {
+                showMenu();
+                choice = sc.nextLine();
+
+                switch(choice) {
+                    case("1"):
+                        FileControl.addFilm(fileName);
+                        break;
+                    case("2"):
+                        LinkedList<Videofilm> list = new LinkedList<>();
+                        FileControl.outFilms(fileName, list);
+                        break;
+                    case("3"):
+                        System.out.println("Введите режиссера");
+                        String director = sc.nextLine();
+                        LinkedList<Videofilm> listDir = new LinkedList<>();
+                        FileControl.sameDirector(fileName, listDir, director.strip());
+                        System.out.println("Фильмы режссера " + director + ":\r\n");
+                        for (Videofilm film: listDir) {
+                            System.out.println("Фильм: " + film.getTitle() + "\r\nСтудия: " + film.getStudio() +
+                                    "\r\nГод выпуска: " + film.getYear() + "\r\nРежиссер: " + film.getDirector() +
+                                    "\r\nВ главной роли: " + film.getLeadRole() + "\r\n");
+                        }
+                        break;
+                    case("4"):
+                        FileControl.delOldest(fileName);
+                        break;
+                    case("0"):
+                        break;
+                    default:
+                        System.out.println("Ошибка, повторите ввод");
+                }
+            }
+
         } catch (IOException e) {
             System.out.println("Ошибка ввода-вывода");
         } catch(Exception e) {
             System.out.println("Ошибка");
         }
+    }
+
+    public static void showMenu() {
+        System.out.println("1. Добавить фильм\r\n" +
+                "2. Вывести список фильмов\r\n" +
+                "3. Вывести фильмы одного режиссера\r\n" +
+                "4. Удалить запись по самому старому виедофильме (оригинальная орфография сохранена)\r\n" +
+                "0. Выход");
     }
 }
