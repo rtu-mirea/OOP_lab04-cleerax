@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.Arrays;
+import java.util.RandomAccess;
 import java.util.Scanner;
 import java.util.LinkedList;
 
@@ -117,6 +118,31 @@ public class FileControl {
             out.flush();
             out.close();
             System.out.println("Фильм \"" + movie.getTitle() + "\" удален");
+        } catch (IOException e) {}
+    }
+
+    public static void raf(String fileName, String director) {
+        try {
+            File file1 = new File(fileName);
+            File file2 = new File("raf.bin");
+
+            RandomAccessFile in = new RandomAccessFile(file1, "r");
+            RandomAccessFile out = new RandomAccessFile(file2, "rw");
+
+            while (true) {
+                String title = in.readUTF();
+                String studio = in.readUTF();
+                int year = in.readInt();
+                String Director = in.readUTF();
+                String leadRole = in.readUTF();
+                if (Director.equals(director)) {
+                    out.writeBytes(title);
+                    out.writeBytes(studio);
+                    out.writeInt(year);
+                    out.writeBytes(Director);
+                    out.writeBytes(leadRole);
+                }
+            }
         } catch (IOException e) {}
     }
 }

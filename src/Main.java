@@ -1,4 +1,6 @@
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.LinkedList;
@@ -116,12 +118,33 @@ public class Main {
                     case("4"):
                         FileControl.delOldest(fileName);
                         break;
+                    case("5"):
+                        System.out.println("Введите режиссера");
+                        String dir = sc.nextLine();
+                        FileControl.raf(fileName, dir);
+                        break;
                     case("0"):
                         break;
                     default:
                         System.out.println("Ошибка, повторите ввод");
                 }
             }
+
+            //ЗАДАНИЕ 3
+            //Упражнение 1
+
+            three_one();
+
+            //Упражнение 2
+
+            three_two();
+
+            //Упражнение 3
+
+            three_three();
+
+            //ЗАДАНИЕ 4
+            //Упражнение 1
 
         } catch (IOException e) {
             System.out.println("Ошибка ввода-вывода");
@@ -135,6 +158,57 @@ public class Main {
                 "2. Вывести список фильмов\r\n" +
                 "3. Вывести фильмы одного режиссера\r\n" +
                 "4. Удалить запись по самому старому виедофильме (оригинальная орфография сохранена)\r\n" +
-                "0. Выход");
+                "5. RandomAccessFile\r\n" +
+                "0. Перейти к 3 заданию этой проклятой работы");
+    }
+
+    public static void three_one() throws IOException {
+        FileReader in = new FileReader("T1.txt");
+        FileWriter out = new FileWriter("T2.txt");
+        int chrs = in.read();
+        while (chrs != -1) {
+            out.write(chrs);
+            chrs = in.read();
+        }
+        in.close();
+        out.close();
+    }
+
+    public static void three_two() throws IOException {
+        File file1 = new File("A.txt");
+        file1.createNewFile();
+        Writer W = new OutputStreamWriter(new FileOutputStream(file1.getAbsolutePath(), true));
+        BufferedReader inb = new BufferedReader(new FileReader(file1.getAbsolutePath()), 128);
+        for (int i = 0; i < 512; i++) {
+            W.write("q");
+        }
+        W.close();
+        File file2 = new File("B.txt");
+        file2.createNewFile();
+        BufferedWriter outb = new BufferedWriter(new FileWriter(file2.getAbsolutePath()), 128);
+        char[] buf = new char[128];
+        for (int i = 0; i < 4; i++) {
+            inb.read(buf);
+            outb.write(buf);
+            if (i != 3) {
+                outb.write("\n");
+            }
+        }
+        inb.close();
+        outb.close();
+    }
+
+    public static void three_three() throws IOException {
+        File file1 = new File("A.txt");
+        file1.createNewFile();
+        BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file1.getAbsolutePath()),"Cp1251"));
+        System.out.println(Charset.defaultCharset().name());
+        String line = in.readLine();
+        in.close();
+
+        in = new BufferedReader(new InputStreamReader(new FileInputStream(file1.getAbsolutePath()), StandardCharsets.UTF_8));
+        line = in.readLine();
+        in.close();
+        System.out.println(line);
     }
 }
