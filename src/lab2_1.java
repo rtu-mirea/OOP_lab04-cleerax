@@ -12,6 +12,8 @@ public class lab2_1 implements Serializable{
 
     public void setCode(String code) { this.code = code; }
 
+    public String getCode() { return this.code; }
+
     public boolean chkMath() {
         return code.contains("import java.lang.Math;");
     }

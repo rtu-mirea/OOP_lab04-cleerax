@@ -14,10 +14,10 @@ public class ClassTextFile {
     public lab2_1 tripleTwo() throws IOException{
         Scanner in = new Scanner(new DataInputStream(new FileInputStream(new File(this.filePath))));
         String text = "";
-        String line;
-        while ((line = in.nextLine()) != null) {
-            text += line + " ";
+        while (in.hasNextLine()) {
+            text += in.nextLine() + " ";
         }
+        in.close();
         return new lab2_1(text);
     }
 }

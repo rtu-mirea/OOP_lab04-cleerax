@@ -4,7 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.LinkedList;
-import java.util.Iterator;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -144,7 +144,11 @@ public class Main {
             three_three();
 
             //ЗАДАНИЕ 4
-            //Упражнение 1
+
+            System.out.println("Добро пожаловать в задание 4!");
+            taskFource();
+
+            System.out.println("That's all, folks!");
 
         } catch (IOException e) {
             System.out.println("Ошибка ввода-вывода");
@@ -210,5 +214,64 @@ public class Main {
         line = in.readLine();
         in.close();
         System.out.println(line);
+    }
+
+    public static void taskFource() {
+        System.out.println("Выберите операцию:");
+        String choice = "";
+        while (!choice.equals("0")) {
+            System.out.println("1. Класс для управления текстовым файлом исходных данных\r\n" +
+                    "2. Класс для представления объекта\r\n" +
+                    "3. Класс, обеспечивающий запись в файл и чтение из файла, используя классы\r\n" +
+                    "FileInputStream, FileOutputStream, и классы, обеспечивающие сериализацию объектов\r\n" +
+                    "ObjectOutputStream (сериализация объектов) и ObjectInputStream (десериализация объектов)\r\n" +
+                    "0. Выход");
+            Scanner in = new Scanner(System.in);
+            choice = in.nextLine();
+            switch (choice) {
+                case("1"):
+                    try {
+                        System.out.println("Введите имя файла для чтения из него данных:");
+                        String filePath = in.nextLine();
+                        ClassTextFile wood = new ClassTextFile(filePath);
+                        System.out.println("Текст объекта полученный из файла: " + wood.tripleTwo().getCode());
+                    } catch (IOException e) {
+                        System.out.println("Ошибка");
+                    }
+                    break;
+                case("2"):
+                    ObjectClass grass = new ObjectClass();
+                    System.out.println("введите пожалуйста консоль инпут))");
+                    grass.consoleInput();
+                    System.out.println("Текст объкта введенный с консоли:\n" + grass.GET9().getCode());
+                    System.out.println("Введите имя файла из которого следует взять текст:");
+                    try {
+                        grass.zealotDanielObject(in.nextLine());
+                        System.out.println("Текст объкта полученный из файла:\n" + grass.GET9().getCode());
+                    } catch (IOException e) {
+                        System.out.println("и о ексцепсион");
+                    }
+                    break;
+                case("3"):
+                    System.out.println("Введите имя файла");
+                    SerializationClass spring = new SerializationClass(in.nextLine());
+                    try {
+                        spring.coll();
+                        spring.toColl();
+                    } catch (IOException e) {
+                        System.out.println("Систем шатдаун");
+                    }
+                    ArrayList<lab2_1> arr = spring.getColl();
+                    System.out.println("Десериализованная коллекция обхектов:");
+                    for(lab2_1 o: arr)
+                        System.out.println(o.getCode());
+                    break;
+                case("0"):
+                    break;
+                default:
+                    System.out.println("Ошибка ввода");
+                    break;
+            }
+        }
     }
 }
